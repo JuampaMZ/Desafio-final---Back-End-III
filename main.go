@@ -15,8 +15,6 @@ import (
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
-/* No nos salió lo de swagger */
-
 func main() {
 	db := db.InitDB()
 
