@@ -1,0 +1,440 @@
+definitions:
+  models.Appointment:
+    properties:
+      date:
+        type: string
+      dentist_id:
+        type: integer
+      description:
+        type: string
+      id:
+        type: integer
+      patient_id:
+        type: integer
+      time:
+        type: string
+    type: object
+  models.Dentist:
+    properties:
+      first_name:
+        type: string
+      id:
+        type: integer
+      last_name:
+        type: string
+      license:
+        type: string
+    type: object
+  models.Error:
+    properties:
+      code:
+        description: Código del error (por ejemplo, 400, 404)
+        type: integer
+      message:
+        description: Mensaje descriptivo del error
+        type: string
+    type: object
+  models.Patient:
+    properties:
+      address:
+        type: string
+      dni:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: integer
+      last_name:
+        type: string
+      registration_date:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /dentistas:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Dentist'
+            type: array
+      summary: Listar todos los dentistas
+      tags:
+      - Dentista
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Dentista
+        in: body
+        name: dentista
+        required: true
+        schema:
+          $ref: '#/definitions/models.Dentist'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Dentist'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Agregar un nuevo dentista
+      tags:
+      - Dentista
+  /dentistas/{id}:
+    delete:
+      parameters:
+      - description: ID del dentista
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Eliminar un dentista
+      tags:
+      - Dentista
+    get:
+      parameters:
+      - description: ID del dentista
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Dentist'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Obtener un dentista por ID
+      tags:
+      - Dentista
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID del dentista
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Dentist'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Actualizar algunos campos de un dentista
+      tags:
+      - Dentista
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID del dentista
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Dentista
+        in: body
+        name: dentista
+        required: true
+        schema:
+          $ref: '#/definitions/models.Dentist'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Dentist'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Actualizar un dentista
+      tags:
+      - Dentista
+  /pacientes:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Patient'
+            type: array
+      summary: Listar todos los pacientes
+      tags:
+      - Paciente
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Paciente
+        in: body
+        name: paciente
+        required: true
+        schema:
+          $ref: '#/definitions/models.Patient'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Patient'
+      summary: Agregar un nuevo paciente
+      tags:
+      - Paciente
+  /pacientes/{id}:
+    delete:
+      parameters:
+      - description: ID del paciente
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Eliminar un paciente
+      tags:
+      - Paciente
+    get:
+      parameters:
+      - description: ID del paciente
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Patient'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Obtener un paciente por ID
+      tags:
+      - Paciente
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID del paciente
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Patient'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Actualizar algunos campos de un paciente
+      tags:
+      - Paciente
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID del paciente
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Paciente
+        in: body
+        name: paciente
+        required: true
+        schema:
+          $ref: '#/definitions/models.Patient'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Patient'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Actualizar un paciente
+      tags:
+      - Paciente
+  /turnos:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Appointment'
+            type: array
+      summary: Listar todos los turnos
+      tags:
+      - Turno
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Turno
+        in: body
+        name: turno
+        required: true
+        schema:
+          $ref: '#/definitions/models.Appointment'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Appointment'
+      summary: Agregar un nuevo turno
+      tags:
+      - Turno
+  /turnos/{id}:
+    delete:
+      parameters:
+      - description: ID del turno
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Eliminar un turno
+      tags:
+      - Turno
+    get:
+      parameters:
+      - description: ID del turno
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Appointment'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Obtener un turno por ID
+      tags:
+      - Turno
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID del turno
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Appointment'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Actualizar algunos campos de un turno
+      tags:
+      - Turno
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID del turno
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Turno
+        in: body
+        name: turno
+        required: true
+        schema:
+          $ref: '#/definitions/models.Appointment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Appointment'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Actualizar un turno
+      tags:
+      - Turno
+swagger: "2.0"
